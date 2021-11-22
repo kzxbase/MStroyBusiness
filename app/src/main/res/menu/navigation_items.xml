@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home"
+    android:icon="@drawable/ic_home_icon"
+    android:title="home" />
+    <item android:id="@+id/analytics"
+        android:icon="@drawable/ic_analytics_icon"
+        android:iconTint="@color/white"
+        android:title="analytics"/>
+    <item android:id="@+id/personal"
+        android:icon="@drawable/ic_personal_icon"
+        android:iconTint="@color/white"
+        android:title="personal"/>
+    <item android:id="@+id/card"
+        android:icon="@drawable/ic_card_icon"
+        android:iconTint="@color/white"
+        android:title="card"/>
+
+</menu>
