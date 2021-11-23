@@ -10,5 +10,7 @@ interface PhoneSmsView : MvpView{
 
     fun resendIntent() : Observable<String>
 
+    fun startTimerIntent() : Observable<Int>
+
     fun render(state : PhoneSmsState)
 }

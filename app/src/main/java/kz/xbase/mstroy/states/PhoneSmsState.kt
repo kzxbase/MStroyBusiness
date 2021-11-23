@@ -5,6 +5,7 @@ sealed class PhoneSmsState {
     object Loading : PhoneSmsState()
     object ResendAvailableState : PhoneSmsState()
     object SmsSentState : PhoneSmsState()
+    data class TimerState(val secLeft:Int) : PhoneSmsState()
     data class ShowErrorMessage(val message:String) : PhoneSmsState()
-    object correctSmsState : PhoneSmsState()
+    data class checkedSmsState(val isCorrect:Boolean) : PhoneSmsState()
 }

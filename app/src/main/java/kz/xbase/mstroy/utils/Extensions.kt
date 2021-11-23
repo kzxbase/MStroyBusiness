@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import kz.xbase.mstroy.R
 
 
@@ -72,6 +73,9 @@ fun View.openKeyboard() {
 fun View.closeKeyboard() {
     val imm = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(this.windowToken, 0)
+}
+fun View.showMessage(message:String){
+    Snackbar.make(this,message,Snackbar.LENGTH_SHORT).show()
 }
 
 

@@ -40,11 +40,14 @@
                 >
 
                 <EditText
+                    android:id="@+id/edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     style="@style/register_edittext"
                     android:background="@color/white"
                     android:hint="Имя"
+                    android:inputType="text"
+                    android:nextFocusDown="@id/edt_surname"
                     />
             </com.google.android.material.card.MaterialCardView>
             <TextView
@@ -66,11 +69,14 @@
                 >
 
                 <EditText
+                    android:id="@+id/edt_surname"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     style="@style/register_edittext"
                     android:background="@color/white"
                     android:hint="Фамилия"
+                    android:nextFocusDown="@id/edt_adress"
+                    android:inputType="text"
                     />
             </com.google.android.material.card.MaterialCardView>
             <TextView
@@ -118,11 +124,14 @@
                 >
 
                 <EditText
+                    android:id="@+id/edt_adress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     style="@style/register_edittext"
                     android:background="@color/white"
                     android:hint="Адрес"
+                    android:nextFocusDown="@id/edt_phone"
+                    android:inputType="text"
                     />
             </com.google.android.material.card.MaterialCardView>
             <TextView
@@ -144,11 +153,14 @@
                 >
 
                 <EditText
+                    android:id="@+id/edt_phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     style="@style/register_edittext"
                     android:background="@color/white"
                     android:hint="Номер телефона магазина"
+                    android:nextFocusDown="@id/edt_business_name"
+                    android:inputType="number"
                     />
             </com.google.android.material.card.MaterialCardView>
             <TextView
@@ -192,11 +204,13 @@
                 >
 
                 <EditText
+                    android:id="@+id/edt_business_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     style="@style/register_edittext"
                     android:background="@color/white"
                     android:hint="Название"
+                    android:inputType="text"
                     />
             </com.google.android.material.card.MaterialCardView>
             <TextView
@@ -218,11 +232,14 @@
                 >
 
                 <EditText
+                    android:id="@+id/edt_short_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     style="@style/register_edittext"
                     android:background="@color/white"
                     android:hint="Название"
+                    android:nextFocusDown="@id/edt_id"
+                    android:inputType="text"
                     />
             </com.google.android.material.card.MaterialCardView>
             <TextView
@@ -244,11 +261,14 @@
                 >
 
                 <EditText
+                    android:id="@+id/edt_id"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     style="@style/register_edittext"
                     android:background="@color/white"
                     android:hint="БИН или ИИН"
+                    android:inputType="number"
+                    android:maxLines="1"
                     />
             </com.google.android.material.card.MaterialCardView>
 
