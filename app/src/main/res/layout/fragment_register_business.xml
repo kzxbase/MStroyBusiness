@@ -281,27 +281,108 @@
                 style="@style/general_text"
                 android:text="Способы оплаты"
                 />
-            <CheckBox
+            <LinearLayout
+                android:id="@+id/ll_terminal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                />
-            <CheckBox
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_terminal"
+                    android:src="@drawable/ic_unchecked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Терминал"
+                    android:textColor="@color/grey"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto"
+                    android:textAllCaps="false"
+                    android:clickable="false"
+                    app:backgroundTint="@color/white"/>
+            </LinearLayout>
+            <LinearLayout
+                 android:id="@+id/ll_kaspi"
+                android:layout_width="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_kaspi"
+                    android:src="@drawable/ic_unchecked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Каспи перевод"
+                    android:textColor="@color/grey"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto"
+                    android:textAllCaps="false"
+                    android:clickable="false"
+                    app:backgroundTint="@color/white"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_schet"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <CheckBox
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_schet"
+                    android:src="@drawable/ic_unchecked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Cчет на оплату"
+                    android:textColor="@color/grey"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto"
+                    android:textAllCaps="false"
+                    android:clickable="false"
+                    app:backgroundTint="@color/white"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_cash"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <CheckBox
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_cash"
+                    android:src="@drawable/ic_unchecked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Наличный"
+                    android:textColor="@color/grey"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto"
+                    android:textAllCaps="false"
+                    android:clickable="false"
+                    app:backgroundTint="@color/white"/>
+            </LinearLayout>
+            
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -317,7 +398,11 @@
                 android:background="@color/grey"
                 android:layout_marginTop="10dp"
                 >
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_images"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
@@ -333,7 +418,6 @@
                 android:layout_marginBottom="20dp"
                 app:cornerRadius="10dp"
                 android:textAllCaps="false"
-
                 />
 
         </LinearLayout>

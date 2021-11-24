@@ -53,7 +53,6 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
         if(this::phone.isInitialized){
             tv_description.text = "На номер "+phone.replace(" |","")+" отправлен код"
         }
-
     }
 
     private fun setListeners(){

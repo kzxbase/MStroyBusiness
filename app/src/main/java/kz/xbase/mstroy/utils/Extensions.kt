@@ -75,7 +75,7 @@ fun View.closeKeyboard() {
     imm.hideSoftInputFromWindow(this.windowToken, 0)
 }
 fun View.showMessage(message:String){
-    Snackbar.make(this,message,Snackbar.LENGTH_SHORT).show()
+    Snackbar.make(this,message,Snackbar.LENGTH_LONG).show()
 }
 
 
