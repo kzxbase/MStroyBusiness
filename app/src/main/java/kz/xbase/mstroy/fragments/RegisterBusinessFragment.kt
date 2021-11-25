@@ -1,9 +1,16 @@
 package kz.xbase.mstroy.fragments
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.mosby3.mvi.MviFragment
@@ -20,8 +27,9 @@ class RegisterBusinessFragment : MviFragment<RegisterBusinessView,RegisterBusine
     var isTerminal = false
     var isSchet = false
     var isKaspi = false
-    private var photoList:ArrayList<String> = arrayListOf()
+    private var photoList:ArrayList<Uri> = arrayListOf()
     private val photoAdapter by lazy { RegisterPhotoAdapter(requireContext(),photoList) }
+    private lateinit var resultLauncher:ActivityResultLauncher<Intent>
 
     private lateinit var uploadDataTrigger : PublishSubject<String>
 
@@ -44,6 +52,7 @@ class RegisterBusinessFragment : MviFragment<RegisterBusinessView,RegisterBusine
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_register_business,container,false)
     }
 
@@ -53,8 +62,6 @@ class RegisterBusinessFragment : MviFragment<RegisterBusinessView,RegisterBusine
             adapter = photoAdapter
             layoutManager = LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
         }
-        photoList.add("")
-        photoAdapter.notifyDataSetChanged()
         setListeners()
     }
 
@@ -96,6 +103,21 @@ class RegisterBusinessFragment : MviFragment<RegisterBusinessView,RegisterBusine
                 iv_schet.setImageDrawable(resources.getDrawable(R.drawable.ic_checked))
             }
         }
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if(it.resultCode == Activity.RESULT_OK){
+                it.data?.data?.let { it1 ->
+                    photoList.add(it1)
+                    photoAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+        cv_camera.setOnClickListener{
+            choosePhoto()
+        }
+    }
+    private fun choosePhoto(){
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        resultLauncher.launch(intent)
     }
 
     override fun createPresenter() = RegisterBusinessPresenter(requireContext())
