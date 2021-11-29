@@ -79,62 +79,76 @@
                     android:inputType="text"
                     />
             </com.google.android.material.card.MaterialCardView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                style="@style/general_text"
-                android:text="Город*"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                />
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
+                android:id="@+id/ll_city"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:cardCornerRadius="6dp"
-                >
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    style="@style/register_edittext"
-                    android:background="@color/white"
-                    android:hint="Город"
-                    />
-            </com.google.android.material.card.MaterialCardView>
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                style="@style/general_text"
-                android:text="Адрес*"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                />
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:cardCornerRadius="6dp"
-                >
-
-                <EditText
-                    android:id="@+id/edt_adress"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    style="@style/register_edittext"
-                    android:background="@color/white"
-                    android:hint="Адрес"
-                    android:nextFocusDown="@id/edt_phone"
-                    android:inputType="text"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    style="@style/general_text"
+                    android:text="Город*"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     />
-            </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="6dp"
+                    >
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/register_edittext"
+                        android:background="@color/white"
+                        android:hint="Город"
+                        />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_adress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    style="@style/general_text"
+                    android:text="Адрес*"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="6dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edt_adress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/register_edittext"
+                        android:background="@color/white"
+                        android:hint="Адрес"
+                        android:nextFocusDown="@id/edt_phone"
+                        android:inputType="text"
+                        />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
             <TextView
+                android:id="@+id/tv_phone_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -161,87 +175,101 @@
                     android:hint="Номер телефона магазина"
                     android:nextFocusDown="@id/edt_business_name"
                     android:inputType="number"
+                    android:maxLength="18"
                     />
             </com.google.android.material.card.MaterialCardView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                style="@style/general_text"
-                android:text="Отметить на карте*"
-                />
-            <com.google.android.material.button.MaterialButton
+            <LinearLayout
+                android:id="@+id/ll_location"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/white"
-                app:cornerRadius="6dp"
-                android:textSize="18sp"
-                android:textColor="@color/grey"
-                android:text="Отметка на карте"
-                android:textAllCaps="false"
-                android:fontFamily="@font/roboto"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                style="@style/general_text"
-                android:text="Полное наименование*"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                />
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:cardCornerRadius="6dp"
-                >
-
-                <EditText
-                    android:id="@+id/edt_business_name"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    style="@style/general_text"
+                    android:text="Отметить на карте*"
+                    />
+                <com.google.android.material.button.MaterialButton
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    style="@style/register_edittext"
-                    android:background="@color/white"
-                    android:hint="Название"
-                    android:inputType="text"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/white"
+                    app:cornerRadius="6dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/grey"
+                    android:text="Отметка на карте"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/roboto"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     />
-            </com.google.android.material.card.MaterialCardView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                style="@style/general_text"
-                android:text="Сокрощенное наименование*"
-                />
-            <com.google.android.material.card.MaterialCardView
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_names"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:cardCornerRadius="6dp"
-                >
-
-                <EditText
-                    android:id="@+id/edt_short_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    style="@style/register_edittext"
-                    android:background="@color/white"
-                    android:hint="Название"
-                    android:nextFocusDown="@id/edt_id"
-                    android:inputType="text"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    style="@style/general_text"
+                    android:text="Полное наименование*"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     />
-            </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="6dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edt_business_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/register_edittext"
+                        android:background="@color/white"
+                        android:hint="Название"
+                        android:inputType="text"
+                        />
+                </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    style="@style/general_text"
+                    android:text="Сокрощенное наименование*"
+                    />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="6dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edt_short_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/register_edittext"
+                        android:background="@color/white"
+                        android:hint="Название"
+                        android:nextFocusDown="@id/edt_id"
+                        android:inputType="text"
+                        />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -271,119 +299,126 @@
                     android:maxLines="1"
                     />
             </com.google.android.material.card.MaterialCardView>
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll_payments"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                style="@style/general_text"
-                android:text="Способы оплаты"
-                />
-            <LinearLayout
-                android:id="@+id/ll_terminal"
-                android:layout_width="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/iv_terminal"
-                    android:src="@drawable/ic_unchecked"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    style="@style/general_text"
+                    android:text="Способы оплаты*"
                     />
-                <com.google.android.material.button.MaterialButton
+                <LinearLayout
+                    android:id="@+id/ll_terminal"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Терминал"
-                    android:textColor="@color/grey"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/roboto"
-                    android:textAllCaps="false"
-                    android:clickable="false"
-                    app:backgroundTint="@color/white"/>
-            </LinearLayout>
-            <LinearLayout
-                 android:id="@+id/ll_kaspi"
-                android:layout_width="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/iv_kaspi"
-                    android:src="@drawable/ic_unchecked"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="15dp"
-                    />
-                <com.google.android.material.button.MaterialButton
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_terminal"
+                        android:src="@drawable/ic_unchecked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="15dp"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Терминал"
+                        android:textColor="@color/grey"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto"
+                        android:textAllCaps="false"
+                        android:clickable="false"
+                        app:backgroundTint="@color/white"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_kaspi"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Каспи перевод"
-                    android:textColor="@color/grey"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/roboto"
-                    android:textAllCaps="false"
-                    android:clickable="false"
-                    app:backgroundTint="@color/white"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_schet"
-                android:layout_width="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/iv_schet"
-                    android:src="@drawable/ic_unchecked"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="15dp"
-                    />
-                <com.google.android.material.button.MaterialButton
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_kaspi"
+                        android:src="@drawable/ic_unchecked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="15dp"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Каспи перевод"
+                        android:textColor="@color/grey"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto"
+                        android:textAllCaps="false"
+                        android:clickable="false"
+                        app:backgroundTint="@color/white"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_schet"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Cчет на оплату"
-                    android:textColor="@color/grey"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/roboto"
-                    android:textAllCaps="false"
-                    android:clickable="false"
-                    app:backgroundTint="@color/white"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_cash"
-                android:layout_width="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/iv_cash"
-                    android:src="@drawable/ic_unchecked"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="15dp"
-                    />
-                <com.google.android.material.button.MaterialButton
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_schet"
+                        android:src="@drawable/ic_unchecked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="15dp"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Cчет на оплату"
+                        android:textColor="@color/grey"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto"
+                        android:textAllCaps="false"
+                        android:clickable="false"
+                        app:backgroundTint="@color/white"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_cash"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Наличный"
-                    android:textColor="@color/grey"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/roboto"
-                    android:textAllCaps="false"
-                    android:clickable="false"
-                    app:backgroundTint="@color/white"/>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_cash"
+                        android:src="@drawable/ic_unchecked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="15dp"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Наличный"
+                        android:textColor="@color/grey"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto"
+                        android:textAllCaps="false"
+                        android:clickable="false"
+                        app:backgroundTint="@color/white"/>
+                </LinearLayout>
             </LinearLayout>
+
             
 
             <TextView
+                android:id="@+id/tv_photo_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -424,6 +459,7 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:text="Продолжить"
@@ -437,6 +473,17 @@
                 android:layout_marginBottom="20dp"
                 app:cornerRadius="10dp"
                 android:textAllCaps="false"
+                android:enabled="false"
+                />
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone"
                 />
 
         </LinearLayout>

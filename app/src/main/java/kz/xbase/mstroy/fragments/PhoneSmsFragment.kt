@@ -107,7 +107,7 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
             }
             is PhoneSmsState.checkedSmsState -> {
                 if (state.isCorrect){
-                    (requireActivity() as LoginActivity).navigateRegisterBusinessFragment("")
+                    (requireActivity() as LoginActivity).navigateRegisterBusinessFragment("",false)
                 }else{
                     btn_next.showMessage("Код введен неверно")
                 }

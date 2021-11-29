@@ -13,9 +13,8 @@ class RegisterBusinessPresenter(ctx:Context) : MviBasePresenter<RegisterBusiness
     val apiInteractor = ApiInteractor(ctx)
     override fun bindIntents() {
         val uploadDataIntent :Observable<RegisterBusinessState> = intent(RegisterBusinessView::uploadDataIntent).flatMap {
-            apiInteractor.uploadData(it).startWith(RegisterBusinessState.Loading).subscribeOn(Schedulers.io())
+            apiInteractor.uploadData(it).startWith(RegisterBusinessState.Loading)
         }
-        uploadDataIntent.observeOn(AndroidSchedulers.mainThread())
         subscribeViewState(uploadDataIntent,RegisterBusinessView::render)
     }
 }

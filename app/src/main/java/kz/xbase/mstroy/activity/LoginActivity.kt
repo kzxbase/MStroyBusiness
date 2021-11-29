@@ -10,6 +10,7 @@ import kz.xbase.mstroy.activity.utils.replace
 import kz.xbase.mstroy.fragments.LoginPhoneFragment
 import kz.xbase.mstroy.fragments.PhoneSmsFragment
 import kz.xbase.mstroy.fragments.RegisterBusinessFragment
+import kz.xbase.mstroy.fragments.RegisterPasswordFragment
 import kz.xbase.mstroy.utils.SessionManager
 
 class LoginActivity:AppCompatActivity() {
@@ -27,8 +28,12 @@ class LoginActivity:AppCompatActivity() {
         val fragment = PhoneSmsFragment.newInstance(phone)
         fragment.replace(supportFragmentManager,true)
     }
-    fun navigateRegisterBusinessFragment(data:String){
-        val fragment = RegisterBusinessFragment.newInstance(data)
+    fun navigateRegisterBusinessFragment(data:String,isPerson:Boolean){
+        val fragment = RegisterBusinessFragment.newInstance(data,isPerson)
+        fragment.replace(supportFragmentManager,true)
+    }
+    fun navigateRegisterPassFragment() {
+        val fragment = RegisterPasswordFragment.newInstance()
         fragment.replace(supportFragmentManager,true)
     }
 
