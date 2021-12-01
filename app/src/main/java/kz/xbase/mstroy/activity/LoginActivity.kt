@@ -1,17 +1,10 @@
 package kz.xbase.mstroy.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.utils.replace
-import kz.xbase.mstroy.fragments.LoginPhoneFragment
-import kz.xbase.mstroy.fragments.PhoneSmsFragment
-import kz.xbase.mstroy.fragments.RegisterBusinessFragment
-import kz.xbase.mstroy.fragments.RegisterPasswordFragment
-import kz.xbase.mstroy.utils.SessionManager
+import kz.xbase.mstroy.fragments.login.*
 
 class LoginActivity:AppCompatActivity() {
 
@@ -34,6 +27,14 @@ class LoginActivity:AppCompatActivity() {
     }
     fun navigateRegisterPassFragment() {
         val fragment = RegisterPasswordFragment.newInstance()
+        fragment.replace(supportFragmentManager,true)
+    }
+    fun navigateLoginPhonePassFragment(phone:String) {
+        val fragment = LoginPhonePassFragment.newInstance(phone)
+        fragment.replace(supportFragmentManager,true)
+    }
+    fun navigateLoginForgotFragment(phone: String){
+        val fragment = LoginForgotFragment.newInstance(phone)
         fragment.replace(supportFragmentManager,true)
     }
 

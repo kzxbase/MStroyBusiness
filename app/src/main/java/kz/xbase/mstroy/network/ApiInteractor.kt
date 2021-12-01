@@ -2,18 +2,16 @@ package kz.xbase.mstroy.network
 
 import android.content.Context
 import io.reactivex.Observable
+import kz.xbase.mstroy.model.mvi.AuthModel
 import kz.xbase.mstroy.model.mvi.NewPassModel
-import kz.xbase.mstroy.states.LoginPhoneState
-import kz.xbase.mstroy.states.PhoneSmsState
-import kz.xbase.mstroy.states.RegisterBusinessState
-import kz.xbase.mstroy.states.RegisterPasswordState
+import kz.xbase.mstroy.states.*
 import java.util.concurrent.TimeUnit
 
 class ApiInteractor(ctx: Context) {
 
     //LoginPhoneFragment
     fun checkHasUser(number:String) : Observable<LoginPhoneState> {
-       return Observable.just(LoginPhoneState.HasUserState(false))
+       return Observable.just(LoginPhoneState.HasUserState(true))
     }
 
     //PhoneSmsFragment
@@ -32,5 +30,18 @@ class ApiInteractor(ctx: Context) {
     //RegisterPasswordFragment
     fun setPassword(passModel: NewPassModel) : Observable<RegisterPasswordState> {
         return Observable.just(RegisterPasswordState.SuccesState)
+    }
+
+    //LoginPhonePassFragment
+    fun checkPhonePass(authModel: AuthModel) : Observable<LoginPhonePassState> {
+        return Observable.just(LoginPhonePassState.SuccessState)
+    }
+
+    //LoginForgotFragment
+    fun checkSmsForgot(sms:String) : Observable<PhoneSmsState> {
+        return Observable.just(PhoneSmsState.checkedSmsState(true))
+    }
+    fun resendSmsForgot() : Observable<PhoneSmsState> {
+        return Observable.just(PhoneSmsState.SmsSentState)
     }
 }

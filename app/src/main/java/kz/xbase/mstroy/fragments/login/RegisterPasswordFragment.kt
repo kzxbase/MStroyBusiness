@@ -1,4 +1,4 @@
-package kz.xbase.mstroy.fragments
+package kz.xbase.mstroy.fragments.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import com.hannesdorfmann.mosby3.mvi.MviFragment
-import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_register_password.*
 import kotlinx.android.synthetic.main.fragment_register_password.btn_next

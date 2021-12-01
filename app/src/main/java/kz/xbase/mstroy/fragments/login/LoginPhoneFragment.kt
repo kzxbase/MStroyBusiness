@@ -1,11 +1,9 @@
-package kz.xbase.mstroy.fragments
+package kz.xbase.mstroy.fragments.login
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.hannesdorfmann.mosby3.mvi.MviFragment
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_login_phone.*
@@ -35,12 +33,14 @@ class LoginPhoneFragment : MviFragment<LoginPhoneView,LoginPhonePresenter>(),Log
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_login_phone,container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
+
     }
     private fun setListeners(){
         val phoneTextWatcher = PhoneTextWatcher(edt_phone)
@@ -82,7 +82,7 @@ class LoginPhoneFragment : MviFragment<LoginPhoneView,LoginPhonePresenter>(),Log
             is LoginPhoneState.HasUserState -> {
                 mainTrigger.onNext(0)
                 if(state.isRegistered){
-
+                    (requireActivity() as LoginActivity).navigateLoginPhonePassFragment(edt_phone.text.toString())
                 }else{
                     (requireActivity() as LoginActivity).navigatePhoneSmsFragment(edt_phone.text.toString())
                 }

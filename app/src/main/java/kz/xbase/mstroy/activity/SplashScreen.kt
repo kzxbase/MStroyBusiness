@@ -15,7 +15,7 @@ class SplashScreen : AppCompatActivity() {
         setContentView(R.layout.activity_splashscreen)
         val sessionManager = SessionManager(this)
         Handler().postDelayed(Runnable {
-            if(!sessionManager.getIsLogged() || !sessionManager.getisPinOn()){
+            if(!sessionManager.isLogged || !sessionManager.getisPinOn()){
                 startActivity(Intent(this,LoginActivity::class.java))
                 finish()
             }else{

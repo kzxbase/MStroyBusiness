@@ -439,7 +439,7 @@
                     android:layout_height="70dp"
                     app:cardCornerRadius="10dp"
                     android:layout_gravity="center_vertical"
-                    app:cardBackgroundColor="@color/light_grey"
+                    app:cardBackgroundColor="@color/grey_light"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     >

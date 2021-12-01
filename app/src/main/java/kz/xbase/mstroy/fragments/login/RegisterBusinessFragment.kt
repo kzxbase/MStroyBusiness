@@ -1,4 +1,4 @@
-package kz.xbase.mstroy.fragments
+package kz.xbase.mstroy.fragments.login
 
 import android.app.Activity
 import android.content.Intent
@@ -10,14 +10,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.mosby3.mvi.MviFragment
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_phone_sms.*
 import kotlinx.android.synthetic.main.fragment_register_business.*
 import kotlinx.android.synthetic.main.fragment_register_business.btn_next
 import kotlinx.android.synthetic.main.fragment_register_business.progress

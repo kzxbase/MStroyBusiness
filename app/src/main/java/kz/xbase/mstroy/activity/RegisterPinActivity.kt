@@ -46,6 +46,7 @@ class RegisterPinActivity:AppCompatActivity() {
         btn_create.setOnClickListener {
             sessionManager.setPin(pin)
             sessionManager.setIsPinOn(true)
+            sessionManager.isLogged = true
             startActivity(Intent(this,HomeActivity::class.java))
             finish()
         }

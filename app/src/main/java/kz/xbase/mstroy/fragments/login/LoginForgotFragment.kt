@@ -1,4 +1,4 @@
-package kz.xbase.mstroy.fragments
+package kz.xbase.mstroy.fragments.login
 
 import android.os.Bundle
 import android.text.Editable
@@ -6,28 +6,24 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import com.hannesdorfmann.mosby3.mvi.MviFragment
-import com.jakewharton.rxbinding2.view.enabled
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_phone_sms.*
-import kotlinx.android.synthetic.main.fragment_phone_sms.btn_next
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.LoginActivity
 import kz.xbase.mstroy.activity.utils.closeKeyboard
 import kz.xbase.mstroy.activity.utils.showMessage
-import kz.xbase.mstroy.presenters.PhoneSmsPresenter
+import kz.xbase.mstroy.presenters.LoginForgotPresenter
 import kz.xbase.mstroy.states.PhoneSmsState
 import kz.xbase.mstroy.views.PhoneSmsView
 
-class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsView {
-
+class LoginForgotFragment : MviFragment<PhoneSmsView,LoginForgotPresenter>(),PhoneSmsView {
     private lateinit var checkSmsTrigger : PublishSubject<String>
     private lateinit var resendTrigger : PublishSubject<String>
     private lateinit var startTimerTrigger : PublishSubject<Int>
     private lateinit var phone: String
     var isFirstRun = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +31,6 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
         resendTrigger = PublishSubject.create()
         startTimerTrigger = PublishSubject.create()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,19 +39,17 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
         arguments?.let {
             phone = it.getSerializable("phone") as String
         }
-        return inflater.inflate(R.layout.fragment_phone_sms,container,false)
+        return inflater.inflate(R.layout.fragment_login_forgot,container,false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
         if(this::phone.isInitialized){
-            tv_description.text = "На номер "+phone.replace(" |","")+" отправлен код"
+            tv_description.text = "На номер "+phone.replace(" |","")+" отправлен код для восстановления пароля"
         }
     }
-
     private fun setListeners(){
-        edt_pin.addTextChangedListener(object : TextWatcher{
+        edt_pin.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -85,8 +78,6 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
         }
     }
 
-    override fun createPresenter() = PhoneSmsPresenter(requireContext())
-
     override fun checkSmsIntent() = checkSmsTrigger
 
     override fun resendIntent() = resendTrigger
@@ -107,7 +98,7 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
             }
             is PhoneSmsState.checkedSmsState -> {
                 if (state.isCorrect){
-                    (requireActivity() as LoginActivity).navigateRegisterBusinessFragment("",false)
+                    (requireActivity() as LoginActivity).navigateRegisterPassFragment()
                 }else{
                     btn_next.showMessage("Код введен неверно")
                 }
@@ -132,7 +123,6 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
             }
         }
     }
-
     override fun onResume() {
         super.onResume()
         if(isFirstRun) {
@@ -140,14 +130,15 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
             isFirstRun=false
         }
     }
-
     companion object {
         @JvmStatic
-        fun newInstance(phone:String) = PhoneSmsFragment().apply {
+        fun newInstance(phone:String) = LoginForgotFragment().apply {
             arguments = Bundle().apply {
                 putSerializable("phone",phone)
             }
         }
     }
+
+    override fun createPresenter() = LoginForgotPresenter(requireContext())
 
 }
