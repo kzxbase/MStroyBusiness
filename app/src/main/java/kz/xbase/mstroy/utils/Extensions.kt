@@ -2,6 +2,9 @@ package kz.xbase.mstroy.activity.utils
 
 import android.content.Context
 import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
@@ -85,4 +88,48 @@ fun FragmentActivity.closeKeyboard() {
 
 fun FragmentActivity.openKeyboard() {
     currentFocus?.openKeyboard()
+}
+fun View.inFromRightAnimation() {
+    val inFromRight: Animation = TranslateAnimation(
+        Animation.RELATIVE_TO_PARENT, +1.0f,
+        Animation.RELATIVE_TO_PARENT, 0.0f,
+        Animation.RELATIVE_TO_PARENT, 0.0f,
+        Animation.RELATIVE_TO_PARENT, 0.0f
+    )
+    inFromRight.duration = 500
+    inFromRight.interpolator = AccelerateInterpolator()
+    this.startAnimation(inFromRight)
+}
+fun View.inFromLeftAnimation() {
+    val inFromRight: Animation = TranslateAnimation(
+        Animation.RELATIVE_TO_PARENT, -1.0f,
+        Animation.RELATIVE_TO_PARENT, 0.0f,
+        Animation.RELATIVE_TO_PARENT, 0.0f,
+        Animation.RELATIVE_TO_PARENT, 0.0f
+    )
+    inFromRight.duration = 500
+    inFromRight.interpolator = AccelerateInterpolator()
+    this.startAnimation(inFromRight)
+}
+fun View.outToLeftAnimation(){
+    val inFromRight: Animation = TranslateAnimation(
+        Animation.RELATIVE_TO_PARENT, 0.0f,
+        Animation.RELATIVE_TO_PARENT, -1.0f,
+        Animation.RELATIVE_TO_PARENT, 0.0f,
+        Animation.RELATIVE_TO_PARENT, 0.0f
+    )
+    inFromRight.duration = 500
+    inFromRight.interpolator = AccelerateInterpolator()
+    this.startAnimation(inFromRight)
+}
+fun View.outToRightAnimation(){
+    val inFromRight: Animation = TranslateAnimation(
+        Animation.RELATIVE_TO_PARENT, 0.0f,
+        Animation.RELATIVE_TO_PARENT, 1.0f,
+        Animation.RELATIVE_TO_PARENT, 0.0f,
+        Animation.RELATIVE_TO_PARENT, 0.0f
+    )
+    inFromRight.duration = 500
+    inFromRight.interpolator = AccelerateInterpolator()
+    this.startAnimation(inFromRight)
 }

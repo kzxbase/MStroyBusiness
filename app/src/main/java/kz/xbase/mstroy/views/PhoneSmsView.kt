@@ -4,7 +4,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpView
 import io.reactivex.Observable
 import kz.xbase.mstroy.states.PhoneSmsState
 
-interface PhoneSmsView : MvpView{
+interface  PhoneSmsView : MvpView{
 
     fun checkSmsIntent() : Observable<String>
 

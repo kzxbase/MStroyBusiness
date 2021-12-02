@@ -44,4 +44,15 @@ class ApiInteractor(ctx: Context) {
     fun resendSmsForgot() : Observable<PhoneSmsState> {
         return Observable.just(PhoneSmsState.SmsSentState)
     }
+
+    //HomeFragment
+    fun loadData() : Observable<HomeState> {
+        return Observable.just(HomeState.MainState(""))
+    }
+
+    //HomeEditFragment
+    fun editData() : Observable<HomeEditState> {
+        return Observable.just(HomeEditState.SuccessState)
+    }
+
 }

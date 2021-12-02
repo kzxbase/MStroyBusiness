@@ -15,10 +15,10 @@ class LoginForgotPresenter(ctx:Context) : MviBasePresenter<PhoneSmsView,PhoneSms
 
     override fun bindIntents() {
         val checkSmsIntent : Observable<PhoneSmsState> = intent(PhoneSmsView::checkSmsIntent).flatMap {
-            apiInteractor.checkSms(it).startWith(PhoneSmsState.Loading).subscribeOn(Schedulers.io())
+            apiInteractor.checkSmsForgot(it).startWith(PhoneSmsState.Loading).subscribeOn(Schedulers.io())
         }
         val resendIntent : Observable<PhoneSmsState> = intent(PhoneSmsView::resendIntent).flatMap {
-            apiInteractor.resendSms().startWith(PhoneSmsState.Loading).subscribeOn(Schedulers.io())
+            apiInteractor.resendSmsForgot().startWith(PhoneSmsState.Loading).subscribeOn(Schedulers.io())
         }
         val startTimerIntent : Observable<PhoneSmsState> = intent(PhoneSmsView::startTimerIntent).flatMap {
             Observable.intervalRange(0,60,0,1, TimeUnit.SECONDS).flatMap {
