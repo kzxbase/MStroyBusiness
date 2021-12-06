@@ -24,4 +24,10 @@
         <item name="android:layout_marginEnd">10dp</item>
         <item name="maxLines">1</item>
     </style>
+    <style name="dialog"
+        parent="android:Theme.Material.Dialog">
+        <item name="android:colorAccent">@color/black</item>
+        <item name="android:colorPrimary">@color/grey_back</item>
+        <item name="android:colorPrimaryDark">@color/grey</item>
+    </style>
 </resources>

@@ -80,6 +80,9 @@ fun View.closeKeyboard() {
 fun View.showMessage(message:String){
     Snackbar.make(this,message,Snackbar.LENGTH_LONG).show()
 }
+fun Fragment.showToast(message: String){
+    Toast.makeText(this.context,message,Toast.LENGTH_SHORT).show()
+}
 
 
 fun FragmentActivity.closeKeyboard() {

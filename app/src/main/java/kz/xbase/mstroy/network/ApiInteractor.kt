@@ -55,4 +55,17 @@ class ApiInteractor(ctx: Context) {
         return Observable.just(HomeEditState.SuccessState)
     }
 
+    //CardAddFragment
+    fun addCard() : Observable<CardAddState> {
+        return Observable.just(CardAddState.SuccessState)
+    }
+
+    //CardsFragment
+    fun getCards() : Observable<CardsState> {
+        return Observable.just(CardsState.MainState)
+    }
+    fun chooseCard() : Observable<CardsState> {
+        return Observable.just(CardsState.ChoosedState)
+    }
+
 }

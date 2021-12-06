@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,19 +18,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             app:layout_scrollFlags="enterAlways">
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_bell"
-                android:layout_width="48dp"
-                app:cardElevation="0dp"
-                android:layout_marginStart="16dp"
-                app:cardBackgroundColor="@android:color/transparent"
-                android:layout_height="48dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_bell"/>
-            </com.google.android.material.card.MaterialCardView>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -40,6 +29,7 @@
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:textSize="24sp"
+                android:layout_marginStart="48dp"
                 />
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_pencil"
@@ -52,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_pencil"/>
+                    android:src="@drawable/ic_pencil_red"/>
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
@@ -66,7 +56,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:gravity="center"
             android:layout_height="wrap_content">
 
             <LinearLayout
@@ -74,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -394,19 +383,31 @@
                             android:text="Адрес"
                             android:textColor="@color/grey"
                             android:textSize="16sp" />
-
-                        <TextView
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_20sdp"
                             android:layout_marginTop="@dimen/_11sdp"
                             android:layout_marginEnd="@dimen/_20sdp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/roboto"
-                            android:text="Аскарова 17"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
+                            app:cardBackgroundColor="@color/grey_card"
+                            app:cardCornerRadius="@dimen/_4sdp"
+                            >
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto"
+                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:layout_marginEnd="@dimen/_20sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:text="Аскарова 17"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+                        </com.google.android.material.card.MaterialCardView>
+
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -418,124 +419,68 @@
                             android:textColor="@color/grey"
                             android:textSize="16sp" />
 
-                        <TextView
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_20sdp"
                             android:layout_marginTop="@dimen/_11sdp"
                             android:layout_marginEnd="@dimen/_20sdp"
                             android:layout_marginBottom="@dimen/_15sdp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/roboto"
-                            android:text="Лучшие предложения по городу только у нас!Лучшие предложения по городу только у нас!Лучшие предложения по "
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            app:cardBackgroundColor="@color/grey_card"
+                            app:cardCornerRadius="@dimen/_4sdp"
+                            >
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:layout_marginEnd="@dimen/_20sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:background="@android:color/transparent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto"
+                                android:text="Лучшие предложения по городу только у нас!Лучшие предложения по городу только у нас!Лучшие предложения по "
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+                        </com.google.android.material.card.MaterialCardView>
+
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_confirm_edit"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:fontFamily="@font/roboto"
-                    android:text="Продвижение магазина"
+                    android:text="Подтвердить изменения"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:visibility="visible"
-                    app:backgroundTint="@color/grey"
+                    app:backgroundTint="@color/white"
                     app:cornerRadius="@dimen/_10sdp" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_150sdp"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    android:visibility="visible"
-                    app:cardBackgroundColor="#1E1E21"
-                    app:cardCornerRadius="@dimen/_18sdp">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/ic_mask_group">
-
-                        <ImageView
-                            android:id="@+id/iv_visa"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_30sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
-                            android:src="@drawable/ic_visa"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_29sdp"
-                            android:layout_marginEnd="@dimen/_10sdp"
-                            android:src="@drawable/ic_master_card"
-                            app:layout_constraintEnd_toStartOf="@id/iv_visa"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/iv_chip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
-                            android:layout_marginTop="@dimen/_44sdp"
-                            android:src="@drawable/ic_chip"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
-                            android:layout_marginTop="@dimen/_12sdp"
-                            android:fontFamily="@font/inder"
-                            android:text="****    ****    ****    4568"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/iv_chip" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_add_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    android:layout_marginBottom="@dimen/_30sdp"
-                    android:fontFamily="@font/roboto"
-                    android:text="Добавить карту +"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:visibility="visible"
-                    app:backgroundTint="@color/grey"
-                    app:cornerRadius="@dimen/_10sdp" />
             </LinearLayout>
-            <ProgressBar
+            <LinearLayout
                 android:id="@+id/progress"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/white"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:visibility="gone"
-                />
+                android:layout_height="match_parent">
+                <ProgressBar
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/white"
+                    />
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

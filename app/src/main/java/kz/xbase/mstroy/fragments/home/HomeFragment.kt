@@ -10,6 +10,7 @@ import com.hannesdorfmann.mosby3.mvi.MviFragment
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_home.*
 import kz.xbase.mstroy.R
+import kz.xbase.mstroy.activity.HomeActivity
 import kz.xbase.mstroy.activity.utils.*
 import kz.xbase.mstroy.presenters.HomePresenter
 import kz.xbase.mstroy.states.HomeState
@@ -98,6 +99,15 @@ class HomeFragment : MviFragment<HomeFragmentView,HomePresenter>(), HomeFragment
             }catch (ex:Exception){
 
             }
+        }
+        cv_pencil.setOnClickListener {
+            (activity as HomeActivity).navigateHomeEditFragment()
+        }
+        btn_add_card.setOnClickListener {
+            (activity as HomeActivity).navigateCardAddFragment()
+        }
+        cv_card.setOnClickListener {
+            (activity as HomeActivity).navigateCardsFragment()
         }
     }
 
