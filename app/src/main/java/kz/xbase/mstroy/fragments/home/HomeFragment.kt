@@ -109,6 +109,12 @@ class HomeFragment : MviFragment<HomeFragmentView,HomePresenter>(), HomeFragment
         cv_card.setOnClickListener {
             (activity as HomeActivity).navigateCardsFragment()
         }
+        cv_bell.setOnClickListener {
+            (activity as HomeActivity).navigateNotificationFragment()
+        }
+        btn_promote.setOnClickListener {
+            (activity as HomeActivity).navigatePromoteFragment()
+        }
     }
 
     companion object {

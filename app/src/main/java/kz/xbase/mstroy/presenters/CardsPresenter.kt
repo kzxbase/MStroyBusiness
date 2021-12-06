@@ -3,6 +3,7 @@ package kz.xbase.mstroy.presenters
 import android.content.Context
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kz.xbase.mstroy.network.ApiInteractor
 import kz.xbase.mstroy.states.CardsState
@@ -21,7 +22,7 @@ class CardsPresenter(ctx:Context) : MviBasePresenter<CardsView,CardsState>() {
                 CardsState.ShowErrorMessage("")
             }
         }
-        val allIntent = Observable.merge(chooseIntent,loadIntent)
+        val allIntent = Observable.merge(chooseIntent,loadIntent).observeOn(AndroidSchedulers.mainThread())
         subscribeViewState(allIntent,CardsView::render)
     }
 }

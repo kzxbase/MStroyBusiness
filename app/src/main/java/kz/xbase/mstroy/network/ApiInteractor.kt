@@ -68,4 +68,9 @@ class ApiInteractor(ctx: Context) {
         return Observable.just(CardsState.ChoosedState)
     }
 
+    //NotificationListFragment
+    fun getNotifications() : Observable<NotificationListState> {
+        return Observable.just(NotificationListState.MainState)
+    }
+
 }

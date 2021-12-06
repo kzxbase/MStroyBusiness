@@ -4,10 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.utils.replace
-import kz.xbase.mstroy.fragments.home.CardAddFragment
-import kz.xbase.mstroy.fragments.home.CardsFragment
-import kz.xbase.mstroy.fragments.home.HomeEditFragment
-import kz.xbase.mstroy.fragments.home.HomeFragment
+import kz.xbase.mstroy.fragments.home.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -30,6 +27,18 @@ class HomeActivity : AppCompatActivity() {
     }
     fun navigateCardsFragment() {
         val fragment = CardsFragment.newInstance()
+        fragment.replace(supportFragmentManager,true)
+    }
+    fun navigateNotificationFragment() {
+        val fragment = NotificationFragment.newInstance()
+        fragment.replace(supportFragmentManager,true)
+    }
+    fun navigateNotificationListFragment(isOrder:Boolean) {
+        val fragment = NotificationListFragment.newInstance(isOrder)
+        fragment.replace(supportFragmentManager,true)
+    }
+    fun navigatePromoteFragment() {
+        val fragment = PromoteFragment.newInstance()
         fragment.replace(supportFragmentManager,true)
     }
 }

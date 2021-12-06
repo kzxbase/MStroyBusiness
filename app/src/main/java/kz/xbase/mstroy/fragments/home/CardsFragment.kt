@@ -11,6 +11,8 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_cards.*
 import kz.xbase.mstroy.R
+import kz.xbase.mstroy.activity.HomeActivity
+import kz.xbase.mstroy.activity.utils.showToast
 import kz.xbase.mstroy.adapters.CardsAdapter
 import kz.xbase.mstroy.presenters.CardsPresenter
 import kz.xbase.mstroy.states.CardsState
@@ -59,16 +61,20 @@ class CardsFragment : MviFragment<CardsView,CardsPresenter>(),CardsView {
     override fun render(state: CardsState) {
         when(state) {
             is CardsState.MainState -> {
-
+                progress.visibility = View.GONE
+                ll_main.visibility = View.VISIBLE
             }
             is CardsState.Loading -> {
-
+                progress.visibility = View.VISIBLE
+                ll_main.visibility = View.GONE
             }
             is CardsState.ShowErrorMessage -> {
-
+                progress.visibility = View.GONE
+                ll_main.visibility = View.VISIBLE
             }
             is CardsState.ChoosedState -> {
-
+                showToast("Основная карта сменилась")
+                (activity as HomeActivity).navigateHomeFragment()
             }
         }
     }
