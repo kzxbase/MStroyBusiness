@@ -2,8 +2,10 @@ package kz.xbase.mstroy.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_home.*
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.utils.replace
+import kz.xbase.mstroy.fragments.analytics.AnalyticsFragment
 import kz.xbase.mstroy.fragments.home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -12,7 +14,18 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         navigateHomeFragment()
+        setListeners()
     }
+
+    private fun setListeners(){
+        nav_view.setOnItemSelectedListener {
+            if(it.itemId==R.id.analytics){
+                navigateAnalyticsFragment()
+            }
+            true
+        }
+    }
+
     fun navigateHomeFragment(){
         val fragment = HomeFragment.newInstance()
         fragment.replace(supportFragmentManager,true)
@@ -39,6 +52,10 @@ class HomeActivity : AppCompatActivity() {
     }
     fun navigatePromoteFragment() {
         val fragment = PromoteFragment.newInstance()
+        fragment.replace(supportFragmentManager,true)
+    }
+    fun navigateAnalyticsFragment(){
+        val fragment = AnalyticsFragment.newInstance()
         fragment.replace(supportFragmentManager,true)
     }
 }
