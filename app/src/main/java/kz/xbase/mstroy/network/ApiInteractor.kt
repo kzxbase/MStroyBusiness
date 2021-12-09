@@ -72,5 +72,9 @@ class ApiInteractor(ctx: Context) {
     fun getNotifications() : Observable<NotificationListState> {
         return Observable.just(NotificationListState.MainState)
     }
+    //AnalyticsPersonalFragment
+    fun getPersonal() : Observable<AnalyticsPersonalState> {
+        return Observable.just(AnalyticsPersonalState.MainState(""))
+    }
 
 }

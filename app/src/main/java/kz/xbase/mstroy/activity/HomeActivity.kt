@@ -6,6 +6,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.utils.replace
 import kz.xbase.mstroy.fragments.analytics.AnalyticsFragment
+import kz.xbase.mstroy.fragments.analytics.PersonalItemFragment
 import kz.xbase.mstroy.fragments.home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -56,6 +57,10 @@ class HomeActivity : AppCompatActivity() {
     }
     fun navigateAnalyticsFragment(){
         val fragment = AnalyticsFragment.newInstance()
+        fragment.replace(supportFragmentManager,true)
+    }
+    fun navigateAnalyticsPersonalItemFragment(){
+        val fragment = PersonalItemFragment.newInstance()
         fragment.replace(supportFragmentManager,true)
     }
 }

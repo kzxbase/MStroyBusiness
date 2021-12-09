@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "kz.xbase.mstroy"
-        minSdk 24
+        minSdk 26
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -60,4 +63,5 @@ dependencies {
     implementation "androidx.biometric:biometric-ktx:1.2.0-alpha03"
     implementation 'com.github.poovamraj:PinEditTextField:1.2.6'
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.github.kizitonwose:CalendarView:1.0.4'
 }
