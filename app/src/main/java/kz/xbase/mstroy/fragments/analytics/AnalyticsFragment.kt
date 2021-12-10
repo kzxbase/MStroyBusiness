@@ -34,6 +34,8 @@ class AnalyticsFragment : Fragment() {
             tv_tab_shop.setTextColor(resources.getColor(R.color.white))
             cv_tab_good.setCardBackgroundColor(resources.getColor(R.color.black))
             tv_tab_good.setTextColor(resources.getColor(R.color.white))
+            iv_filter.visibility = View.INVISIBLE
+            iv_sort.visibility = View.INVISIBLE
             val personalFragment = AnalyticsPersonalFragment.newInstance()
             replace(personalFragment,childFragmentManager,true)
         }
@@ -44,6 +46,10 @@ class AnalyticsFragment : Fragment() {
             tv_tab_shop.setTextColor(resources.getColor(R.color.white))
             cv_tab_good.setCardBackgroundColor(resources.getColor(R.color.white))
             tv_tab_good.setTextColor(resources.getColor(R.color.black))
+            iv_filter.visibility = View.VISIBLE
+            iv_sort.visibility = View.VISIBLE
+            val goodFragment = AnalyticsGoodFragment.newInstance()
+            replace(goodFragment,childFragmentManager,true)
         }
         cv_tab_shop.setOnClickListener {
             cv_tab_personal.setCardBackgroundColor(resources.getColor(R.color.black))
@@ -52,6 +58,10 @@ class AnalyticsFragment : Fragment() {
             tv_tab_shop.setTextColor(resources.getColor(R.color.black))
             cv_tab_good.setCardBackgroundColor(resources.getColor(R.color.black))
             tv_tab_good.setTextColor(resources.getColor(R.color.white))
+            iv_filter.visibility = View.INVISIBLE
+            iv_sort.visibility = View.INVISIBLE
+            val shopFragment = AnalyticsShopFragment.newInstance()
+            replace(shopFragment,childFragmentManager,true)
         }
     }
 

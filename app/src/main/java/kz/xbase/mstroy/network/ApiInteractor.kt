@@ -76,5 +76,9 @@ class ApiInteractor(ctx: Context) {
     fun getPersonal() : Observable<AnalyticsPersonalState> {
         return Observable.just(AnalyticsPersonalState.MainState(""))
     }
+    //AnalyticsShopFragment
+    fun getShopAnalytics() : Observable<AnalyticsShopState> {
+        return Observable.just(AnalyticsShopState.MainState(""))
+    }
 
 }
