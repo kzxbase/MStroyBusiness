@@ -10,17 +10,19 @@ import com.hannesdorfmann.mosby3.mvi.MviFragment
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_phone_sms.*
 import kotlinx.android.synthetic.main.fragment_phone_sms.btn_next
+import kz.xbase.a_pay.utils.TextConverter
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.LoginActivity
 import kz.xbase.mstroy.activity.utils.closeKeyboard
 import kz.xbase.mstroy.activity.utils.showMessage
+import kz.xbase.mstroy.model.mvi.AuthModel
 import kz.xbase.mstroy.presenters.PhoneSmsPresenter
 import kz.xbase.mstroy.states.PhoneSmsState
 import kz.xbase.mstroy.views.PhoneSmsView
 
 class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsView {
 
-    private lateinit var checkSmsTrigger : PublishSubject<String>
+    private lateinit var checkSmsTrigger : PublishSubject<AuthModel>
     private lateinit var resendTrigger : PublishSubject<String>
     private lateinit var startTimerTrigger : PublishSubject<Int>
     private lateinit var phone: String
@@ -75,10 +77,10 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
 
         })
         btn_next.setOnClickListener {
-            checkSmsTrigger.onNext(edt_pin.text.toString())
+            checkSmsTrigger.onNext(AuthModel(TextConverter().getOnlyDigits(phone),edt_pin.text.toString()))
         }
         btn_time_left.setOnClickListener {
-            resendTrigger.onNext(phone)
+            resendTrigger.onNext(TextConverter().getOnlyDigits(phone))
         }
     }
 
@@ -103,11 +105,7 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
                 startTimerTrigger.onNext(1)
             }
             is PhoneSmsState.checkedSmsState -> {
-                if (state.isCorrect){
-                    (requireActivity() as LoginActivity).navigateRegisterBusinessFragment("",false)
-                }else{
-                    btn_next.showMessage("Код введен неверно")
-                }
+                (requireActivity() as LoginActivity).navigateRegisterBusinessFragment(state.cityList)
             }
             is PhoneSmsState.TimerState -> {
                 progress.visibility = View.GONE
@@ -125,7 +123,8 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
                 btn_time_left.isEnabled = true
             }
             is PhoneSmsState.ShowErrorMessage -> {
-
+                edt_pin.showMessage(state.message)
+                edt_pin.text?.clear()
             }
         }
     }

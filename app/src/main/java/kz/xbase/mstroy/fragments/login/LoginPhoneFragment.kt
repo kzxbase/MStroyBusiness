@@ -13,6 +13,7 @@ import kz.xbase.a_pay.views.LoginPhoneView
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.LoginActivity
 import kz.xbase.mstroy.activity.utils.closeKeyboard
+import kz.xbase.mstroy.activity.utils.showMessage
 import kz.xbase.mstroy.presenters.LoginPhonePresenter
 import kz.xbase.mstroy.states.LoginPhoneState
 
@@ -81,14 +82,18 @@ class LoginPhoneFragment : MviFragment<LoginPhoneView,LoginPhonePresenter>(),Log
             }
             is LoginPhoneState.HasUserState -> {
                 mainTrigger.onNext(0)
-                if(state.isRegistered){
+                if(state.isRegistered.isRegistered){
                     (requireActivity() as LoginActivity).navigateLoginPhonePassFragment(edt_phone.text.toString())
                 }else{
                     (requireActivity() as LoginActivity).navigatePhoneSmsFragment(edt_phone.text.toString())
                 }
             }
             is LoginPhoneState.ShowErrorMessage -> {
-
+                edt_phone.showMessage(state.error)
+                progress.visibility = View.GONE
+                edt_phone.isEnabled = true
+                edt_phone.text.clear()
+                btn_next.isEnabled = false
             }
         }
     }

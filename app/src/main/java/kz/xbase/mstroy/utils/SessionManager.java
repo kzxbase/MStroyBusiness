@@ -35,6 +35,7 @@ public class SessionManager {
     private static final String NOTIFICACATION_APAY="NOTIFICACATION_APAY";
     private static final String IS_PUSH="IS_PUSH";
     private static final String IS_PIN_ON="IS_PIN_ON";
+    private static final String ROLE = "ROLE";
 
     private SharedPreferences sPref;
     private SharedPreferences.Editor editor;
@@ -191,4 +192,12 @@ public class SessionManager {
         return sPref.getBoolean(IS_PIN_ON,true);
     }
 
+    public void setRole(String role) {
+        editor.putString(ROLE,role);
+        editor.apply();
+    }
+
+    public String getROLE() {
+        return sPref.getString(ROLE,"MBusiness owner");
+    }
 }

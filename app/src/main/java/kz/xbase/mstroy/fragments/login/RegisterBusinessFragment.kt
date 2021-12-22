@@ -1,6 +1,8 @@
 package kz.xbase.mstroy.fragments.login
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,44 +14,45 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.hannesdorfmann.mosby3.mvi.MviFragment
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_register_business.*
-import kotlinx.android.synthetic.main.fragment_register_business.btn_next
-import kotlinx.android.synthetic.main.fragment_register_business.progress
+import kotlinx.android.synthetic.main.item_register_photo.view.*
 import kz.xbase.a_pay.utils.PhoneTextWatcher
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.LoginActivity
 import kz.xbase.mstroy.adapters.RegisterPhotoAdapter
+import kz.xbase.mstroy.model.mvi.RegisterModel
+import kz.xbase.mstroy.model.network.City
 import kz.xbase.mstroy.presenters.RegisterBusinessPresenter
 import kz.xbase.mstroy.states.RegisterBusinessState
+import kz.xbase.mstroy.utils.SessionManager
 import kz.xbase.mstroy.views.RegisterBusinessView
 
-class RegisterBusinessFragment : MviFragment<RegisterBusinessView,RegisterBusinessPresenter>(),RegisterBusinessView {
+class RegisterBusinessFragment : Fragment(){
     var isCash = false
     var isTerminal = false
     var isSchet = false
     var isKaspi = false
-    private var photoList:ArrayList<Uri> = arrayListOf()
-    private val photoAdapter by lazy { RegisterPhotoAdapter(requireContext(),photoList) }
     private lateinit var resultLauncher:ActivityResultLauncher<Intent>
-    private lateinit var uploadDataTrigger : PublishSubject<String>
-    private lateinit var data: String
     private var isPerson = false
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        uploadDataTrigger = PublishSubject.create()
-    }
+    private var cityList:List<City> = listOf()
+    private var photoNum = 0
+    private var mainPhoto:Uri? = null
+    private var firstPhoto:Uri? = null
+    private var secondPhoto:Uri? = null
+    private var thirdPhoto:Uri? = null
 
     companion object {
         @JvmStatic
-        fun newInstance(data:String,isPerson:Boolean) = RegisterBusinessFragment().apply {
+        fun newInstance(cityList: List<City>) = RegisterBusinessFragment().apply {
             arguments = Bundle().apply {
-                putSerializable("data",data)
-                putBoolean("isPerson",isPerson)
+                putSerializable("cityList",Gson().toJson(cityList))
             }
         }
     }
@@ -60,18 +63,15 @@ class RegisterBusinessFragment : MviFragment<RegisterBusinessView,RegisterBusine
         savedInstanceState: Bundle?
     ): View? {
         arguments?.let {
-            data = it.getSerializable("data") as String
-            isPerson = it.getBoolean("isPerson")
+            cityList = Gson().fromJson(it.getSerializable("cityList") as String,
+                object : TypeToken<ArrayList<City>>() {}.type)
         }
+        isPerson = !SessionManager(requireContext()).role.equals("MBusiness owner")
         return inflater.inflate(R.layout.fragment_register_business,container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rv_images.apply {
-            adapter = photoAdapter
-            layoutManager = LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
-        }
         setListeners()
         initView()
     }
@@ -165,16 +165,59 @@ class RegisterBusinessFragment : MviFragment<RegisterBusinessView,RegisterBusine
         resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if(it.resultCode == Activity.RESULT_OK){
                 it.data?.data?.let { it1 ->
-                    photoList.add(it1)
-                    photoAdapter.notifyDataSetChanged()
+                    var photos=requireContext().getExternalFilesDir("Pictures")
+                    if(photos!=null) {
+                        if (photoNum==0){
+                            mainPhoto = it1
+                            iv_photo.setImageURI(mainPhoto)
+                        }else if(photoNum==1){
+                            firstPhoto = it1
+                            iv_photo_first.setImageURI(firstPhoto)
+                        }else if(photoNum==2){
+                            secondPhoto = it1
+                            iv_photo_two.setImageURI(secondPhoto)
+                        }else{
+                            thirdPhoto = it1
+                            iv_photo_three.setImageURI(thirdPhoto)
+                        }
+                    }
                 }
             }
         }
-        cv_camera.setOnClickListener{
-            choosePhoto()
+        cv_camera_main.setOnClickListener{
+            photoNum = 0
+            if(mainPhoto!=null){
+                removePhoto()
+            }else {
+                choosePhoto()
+            }
+        }
+        cv_camera_first.setOnClickListener{
+            photoNum =1
+            if(firstPhoto!=null){
+                removePhoto()
+            }else {
+                choosePhoto()
+            }
+        }
+        cv_camera_two.setOnClickListener{
+            photoNum =2
+            if(secondPhoto!=null){
+                removePhoto()
+            }else {
+                choosePhoto()
+            }
+        }
+        cv_camera_three.setOnClickListener{
+            photoNum =3
+            if(thirdPhoto!=null){
+                removePhoto()
+            }else {
+                choosePhoto()
+            }
         }
         btn_next.setOnClickListener {
-            uploadDataTrigger.onNext("")
+            (activity as LoginActivity).navigateRegisterPassFragment(RegisterModel(mainPhoto,firstPhoto,secondPhoto,thirdPhoto,""))
         }
         edt_name.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -437,29 +480,32 @@ class RegisterBusinessFragment : MviFragment<RegisterBusinessView,RegisterBusine
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         resultLauncher.launch(intent)
     }
-
-    override fun createPresenter() = RegisterBusinessPresenter(requireContext())
-
-    override fun uploadDataIntent() = uploadDataTrigger
-
-    override fun render(state: RegisterBusinessState) {
-        when(state){
-            is RegisterBusinessState.MainState -> {
-                progress.visibility = View.GONE
-                btn_next.visibility = View.VISIBLE
+    private fun removePhoto(){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Да",object : DialogInterface.OnClickListener {
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                if(photoNum==0){
+                    mainPhoto=null
+                    iv_photo.setImageDrawable(resources.getDrawable(R.drawable.ic_camera))
+                }else if(photoNum==1){
+                    firstPhoto=null
+                    iv_photo_first.setImageDrawable(resources.getDrawable(R.drawable.ic_camera))
+                }else if(photoNum==2){
+                    secondPhoto=null
+                    iv_photo_two.setImageDrawable(resources.getDrawable(R.drawable.ic_camera))
+                }else{
+                    thirdPhoto=null
+                    iv_photo_three.setImageDrawable(resources.getDrawable(R.drawable.ic_camera))
+                }
             }
-            is RegisterBusinessState.SuccessState -> {
-                (activity as LoginActivity).navigateRegisterPassFragment()
+        })
+        builder.setNegativeButton("Отмена",object : DialogInterface.OnClickListener {
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                dialog?.dismiss()
             }
-            is RegisterBusinessState.Loading -> {
-                progress.visibility = View.VISIBLE
-                btn_next.visibility = View.GONE
-            }
-            is RegisterBusinessState.ShowErrorMessage -> {
-                progress.visibility = View.GONE
-                btn_next.visibility = View.VISIBLE
-            }
-        }
+        })
+        builder.setTitle("Хотите удалить фото ?")
+        builder.show()
     }
 
 }

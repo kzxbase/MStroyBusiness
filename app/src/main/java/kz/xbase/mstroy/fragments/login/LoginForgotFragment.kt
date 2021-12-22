@@ -13,12 +13,13 @@ import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.LoginActivity
 import kz.xbase.mstroy.activity.utils.closeKeyboard
 import kz.xbase.mstroy.activity.utils.showMessage
+import kz.xbase.mstroy.model.mvi.AuthModel
 import kz.xbase.mstroy.presenters.LoginForgotPresenter
 import kz.xbase.mstroy.states.PhoneSmsState
 import kz.xbase.mstroy.views.PhoneSmsView
 
 class LoginForgotFragment : MviFragment<PhoneSmsView,LoginForgotPresenter>(),PhoneSmsView {
-    private lateinit var checkSmsTrigger : PublishSubject<String>
+    private lateinit var checkSmsTrigger : PublishSubject<AuthModel>
     private lateinit var resendTrigger : PublishSubject<String>
     private lateinit var startTimerTrigger : PublishSubject<Int>
     private lateinit var phone: String
@@ -71,7 +72,7 @@ class LoginForgotFragment : MviFragment<PhoneSmsView,LoginForgotPresenter>(),Pho
 
         })
         btn_next.setOnClickListener {
-            checkSmsTrigger.onNext(edt_pin.text.toString())
+            checkSmsTrigger.onNext(AuthModel(phone,edt_pin.text.toString()))
         }
         btn_time_left.setOnClickListener {
             resendTrigger.onNext(phone)
@@ -97,11 +98,7 @@ class LoginForgotFragment : MviFragment<PhoneSmsView,LoginForgotPresenter>(),Pho
                 startTimerTrigger.onNext(1)
             }
             is PhoneSmsState.checkedSmsState -> {
-                if (state.isCorrect){
-                    (requireActivity() as LoginActivity).navigateRegisterPassFragment()
-                }else{
-                    btn_next.showMessage("Код введен неверно")
-                }
+                    //(requireActivity() as LoginActivity).navigateRegisterPassFragment()
             }
             is PhoneSmsState.TimerState -> {
                 progress.visibility = View.GONE

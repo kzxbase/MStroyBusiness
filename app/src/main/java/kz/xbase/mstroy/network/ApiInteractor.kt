@@ -1,25 +1,39 @@
 package kz.xbase.mstroy.network
 
 import android.content.Context
+import android.util.Base64
 import io.reactivex.Observable
+import kz.xbase.mstroy.App
 import kz.xbase.mstroy.model.mvi.AuthModel
 import kz.xbase.mstroy.model.mvi.NewPassModel
 import kz.xbase.mstroy.states.*
-import java.util.concurrent.TimeUnit
+import kz.xbase.mstroy.utils.SessionManager
 
 class ApiInteractor(ctx: Context) {
+    val api = App.api.api
+    val sessionManager = SessionManager(ctx)
+
+    fun toBase64(text:String):String{
+        val data: ByteArray = text.encodeToByteArray()
+        return Base64.encodeToString(data, Base64.NO_WRAP)
+    }
 
     //LoginPhoneFragment
     fun checkHasUser(number:String) : Observable<LoginPhoneState> {
-       return Observable.just(LoginPhoneState.HasUserState(true))
+       return api.checkUser(toBase64(number)).flatMap {
+            Observable.just(LoginPhoneState.HasUserState(it))
+       }
     }
-
     //PhoneSmsFragment
-    fun checkSms(sms:String) : Observable<PhoneSmsState> {
-        return Observable.just(PhoneSmsState.checkedSmsState(true))
+    fun checkSms(authModel: AuthModel) : Observable<PhoneSmsState> {
+        return api.verifyPhone(toBase64(authModel.phone),toBase64(authModel.pass)).flatMap {
+            Observable.just(PhoneSmsState.checkedSmsState(it.cityList))
+        }
     }
-    fun resendSms() : Observable<PhoneSmsState> {
-        return Observable.just(PhoneSmsState.SmsSentState)
+    fun resendSms(number: String) : Observable<PhoneSmsState> {
+        return api.checkUser(toBase64(number)).flatMap {
+            Observable.just(PhoneSmsState.SmsSentState)
+        }
     }
 
     //RegisterBusinessFragment
@@ -38,8 +52,8 @@ class ApiInteractor(ctx: Context) {
     }
 
     //LoginForgotFragment
-    fun checkSmsForgot(sms:String) : Observable<PhoneSmsState> {
-        return Observable.just(PhoneSmsState.checkedSmsState(true))
+    fun checkSmsForgot(authModel: AuthModel) : Observable<PhoneSmsState> {
+        return Observable.just(PhoneSmsState.checkedSmsState(listOf()))
     }
     fun resendSmsForgot() : Observable<PhoneSmsState> {
         return Observable.just(PhoneSmsState.SmsSentState)

@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.hannesdorfmann.mosby3.mvi.MviFragment
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_register_password.*
@@ -16,6 +18,8 @@ import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.RegisterPinActivity
 import kz.xbase.mstroy.activity.utils.showMessage
 import kz.xbase.mstroy.model.mvi.NewPassModel
+import kz.xbase.mstroy.model.mvi.RegisterModel
+import kz.xbase.mstroy.model.network.City
 import kz.xbase.mstroy.presenters.RegisterPasswordPresenter
 import kz.xbase.mstroy.states.RegisterPasswordState
 import kz.xbase.mstroy.views.RegisterPasswordView
@@ -24,13 +28,18 @@ class RegisterPasswordFragment : MviFragment<RegisterPasswordView,RegisterPasswo
     private lateinit var setPassTrigger:PublishSubject<NewPassModel>
     var passVisible = false
     var passVisible2 = false
+    private lateinit var registerModel:RegisterModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setPassTrigger = PublishSubject.create()
     }
     companion object {
         @JvmStatic
-        fun newInstance() = RegisterPasswordFragment()
+        fun newInstance(registerModel: RegisterModel) = RegisterPasswordFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable("data",Gson().toJson(registerModel))
+            }
+        }
     }
 
     override fun onCreateView(
@@ -38,6 +47,10 @@ class RegisterPasswordFragment : MviFragment<RegisterPasswordView,RegisterPasswo
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        arguments?.let {
+            registerModel = Gson().fromJson(it.getSerializable("data") as String,
+                object : TypeToken<RegisterModel>() {}.type)
+        }
         return inflater.inflate(R.layout.fragment_register_password,container,false)
     }
 

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.utils.replace
 import kz.xbase.mstroy.fragments.login.*
+import kz.xbase.mstroy.model.mvi.RegisterModel
+import kz.xbase.mstroy.model.network.City
 
 class LoginActivity:AppCompatActivity() {
 
@@ -21,12 +23,12 @@ class LoginActivity:AppCompatActivity() {
         val fragment = PhoneSmsFragment.newInstance(phone)
         fragment.replace(supportFragmentManager,true)
     }
-    fun navigateRegisterBusinessFragment(data:String,isPerson:Boolean){
-        val fragment = RegisterBusinessFragment.newInstance(data,isPerson)
+    fun navigateRegisterBusinessFragment(cityList: List<City>){
+        val fragment = RegisterBusinessFragment.newInstance(cityList)
         fragment.replace(supportFragmentManager,true)
     }
-    fun navigateRegisterPassFragment() {
-        val fragment = RegisterPasswordFragment.newInstance()
+    fun navigateRegisterPassFragment(registerModel: RegisterModel) {
+        val fragment = RegisterPasswordFragment.newInstance(registerModel)
         fragment.replace(supportFragmentManager,true)
     }
     fun navigateLoginPhonePassFragment(phone:String) {
