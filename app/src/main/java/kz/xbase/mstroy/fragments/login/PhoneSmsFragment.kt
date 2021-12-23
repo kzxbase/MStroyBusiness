@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hannesdorfmann.mosby3.mvi.MviFragment
+import com.jakewharton.rxbinding2.view.visibility
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_phone_sms.*
 import kotlinx.android.synthetic.main.fragment_phone_sms.btn_next
@@ -125,6 +126,7 @@ class PhoneSmsFragment : MviFragment<PhoneSmsView,PhoneSmsPresenter>(),PhoneSmsV
             is PhoneSmsState.ShowErrorMessage -> {
                 edt_pin.showMessage(state.message)
                 edt_pin.text?.clear()
+                progress.visibility = View.GONE
             }
         }
     }

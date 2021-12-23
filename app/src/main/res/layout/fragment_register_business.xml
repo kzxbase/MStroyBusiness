@@ -94,6 +94,7 @@
                     android:layout_marginEnd="16dp"
                     />
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_city"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:layout_marginTop="5dp"
@@ -102,11 +103,14 @@
                     app:cardCornerRadius="6dp"
                     >
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/tv_city"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         style="@style/register_edittext"
                         android:background="@color/white"
+                        android:gravity="center"
+                        android:textColor="@color/black"
                         android:hint="Город"
                         />
                 </com.google.android.material.card.MaterialCardView>
@@ -195,7 +199,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_location"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     app:cornerRadius="6dp"
                     android:textSize="18sp"

@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,8 +15,11 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.ListPopupWindow
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -42,19 +46,12 @@ import kz.xbase.mstroy.utils.OnLocationPermission
 import kz.xbase.mstroy.utils.SessionManager
 import kz.xbase.mstroy.views.RegisterBusinessView
 
-class RegisterBusinessFragment : Fragment(), OnLocationPermission {
-    var isCash = false
-    var isTerminal = false
-    var isSchet = false
-    var isKaspi = false
+class RegisterBusinessFragment : Fragment() {
+
     private lateinit var resultLauncher:ActivityResultLauncher<Intent>
     private var isPerson = false
     private var cityList:List<City> = listOf()
     private var photoNum = 0
-    private var mainPhoto:Uri? = null
-    private var firstPhoto:Uri? = null
-    private var secondPhoto:Uri? = null
-    private var thirdPhoto:Uri? = null
     var iviAboutDialog:RegisterMapBottomSheet?=null
 
     companion object {
@@ -64,6 +61,16 @@ class RegisterBusinessFragment : Fragment(), OnLocationPermission {
                 putSerializable("cityList",Gson().toJson(cityList))
             }
         }
+        var location = Location("")
+        var locationName = ""
+        var isCash = false
+        var isTerminal = false
+        var isSchet = false
+        var isKaspi = false
+        private var mainPhoto:Uri? = null
+        private var firstPhoto:Uri? = null
+        private var secondPhoto:Uri? = null
+        private var thirdPhoto:Uri? = null
     }
 
     override fun onCreateView(
@@ -83,7 +90,18 @@ class RegisterBusinessFragment : Fragment(), OnLocationPermission {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
         initView()
-        getLocationPermission()
+        btn_location.text = locationName.ifEmpty { "Отметка на карте" }
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, cityList.map { it.nameRus })
+        val listPopupWindow = ListPopupWindow(requireContext(), null, androidx.appcompat.R.attr.listPopupWindowStyle)
+        listPopupWindow.anchorView = cv_city
+        listPopupWindow.setAdapter(adapter)
+        listPopupWindow.setOnItemClickListener { parent, view, position, id ->
+            tv_city.text = cityList[position].nameRus
+            listPopupWindow.dismiss()
+        }
+        cv_city.setOnClickListener {
+            listPopupWindow.show()
+        }
     }
 
     private fun initView() {
@@ -490,16 +508,7 @@ class RegisterBusinessFragment : Fragment(), OnLocationPermission {
             }
         }
     }
-    private fun getLocationPermission() {
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
 
-        } else {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                1)
-        }
-    }
     private fun choosePhoto(){
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         resultLauncher.launch(intent)
@@ -530,10 +539,6 @@ class RegisterBusinessFragment : Fragment(), OnLocationPermission {
         })
         builder.setTitle("Хотите удалить фото ?")
         builder.show()
-    }
-
-    override fun onLocationPermissionGranted() {
-        iviAboutDialog?.onLocationPermissionGranted()
     }
 
 }

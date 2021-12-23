@@ -1,7 +1,10 @@
 package kz.xbase.mstroy.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.activity.result.ActivityResult
 import androidx.appcompat.app.AppCompatActivity
 import com.yandex.mapkit.MapKitFactory
 import kz.xbase.mstroy.R
@@ -52,11 +55,23 @@ class LoginActivity:AppCompatActivity() {
     ) {
         val fragment = this.supportFragmentManager.findFragmentById(R.id.container)
         if(requestCode==1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            if(fragment is RegisterBusinessFragment){
+            if(fragment is RegisterMapBottomSheet){
                 fragment.onLocationPermissionGranted()
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val fragment = this.supportFragmentManager.findFragmentById(R.id.container)
+        if(requestCode==2 && resultCode == Activity.RESULT_OK){
+            if(fragment is RegisterMapBottomSheet){
+                fragment.gpsEnabled()
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+
 
 }
