@@ -1,9 +1,12 @@
 package kz.xbase.mstroy.activity
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.yandex.mapkit.MapKitFactory
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.utils.replace
+import kz.xbase.mstroy.bottomSheets.RegisterMapBottomSheet
 import kz.xbase.mstroy.fragments.login.*
 import kz.xbase.mstroy.model.mvi.RegisterModel
 import kz.xbase.mstroy.model.network.City
@@ -14,6 +17,8 @@ class LoginActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         navigateLoginPhoneFragment()
+        MapKitFactory.setApiKey("abdd6504-88e2-4856-a4fd-d9739ba0320e")
+        MapKitFactory.initialize(this)
     }
     fun navigateLoginPhoneFragment(){
         val fragment = LoginPhoneFragment.newInstance()
@@ -38,6 +43,20 @@ class LoginActivity:AppCompatActivity() {
     fun navigateLoginForgotFragment(phone: String){
         val fragment = LoginForgotFragment.newInstance(phone)
         fragment.replace(supportFragmentManager,true)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        val fragment = this.supportFragmentManager.findFragmentById(R.id.container)
+        if(requestCode==1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            if(fragment is RegisterBusinessFragment){
+                fragment.onLocationPermissionGranted()
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
 }
