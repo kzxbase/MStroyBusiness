@@ -1,9 +1,11 @@
 package kz.xbase.mstroy.fragments.login
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,6 +16,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,15 +30,19 @@ import kotlinx.android.synthetic.main.item_register_photo.view.*
 import kz.xbase.a_pay.utils.PhoneTextWatcher
 import kz.xbase.mstroy.R
 import kz.xbase.mstroy.activity.LoginActivity
+import kz.xbase.mstroy.activity.utils.replace
+import kz.xbase.mstroy.activity.utils.showToast
 import kz.xbase.mstroy.adapters.RegisterPhotoAdapter
+import kz.xbase.mstroy.bottomSheets.RegisterMapBottomSheet
 import kz.xbase.mstroy.model.mvi.RegisterModel
 import kz.xbase.mstroy.model.network.City
 import kz.xbase.mstroy.presenters.RegisterBusinessPresenter
 import kz.xbase.mstroy.states.RegisterBusinessState
+import kz.xbase.mstroy.utils.OnLocationPermission
 import kz.xbase.mstroy.utils.SessionManager
 import kz.xbase.mstroy.views.RegisterBusinessView
 
-class RegisterBusinessFragment : Fragment(){
+class RegisterBusinessFragment : Fragment(), OnLocationPermission {
     var isCash = false
     var isTerminal = false
     var isSchet = false
@@ -47,6 +55,7 @@ class RegisterBusinessFragment : Fragment(){
     private var firstPhoto:Uri? = null
     private var secondPhoto:Uri? = null
     private var thirdPhoto:Uri? = null
+    var iviAboutDialog:RegisterMapBottomSheet?=null
 
     companion object {
         @JvmStatic
@@ -74,6 +83,7 @@ class RegisterBusinessFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         setListeners()
         initView()
+        getLocationPermission()
     }
 
     private fun initView() {
@@ -90,6 +100,10 @@ class RegisterBusinessFragment : Fragment(){
     }
 
     private fun setListeners() {
+        btn_location.setOnClickListener {
+            iviAboutDialog = RegisterMapBottomSheet.newInstance()
+            iviAboutDialog?.replace(fragmentManager,true)
+        }
         ll_terminal.setOnClickListener {
             if(isTerminal){
                 isTerminal=false
@@ -476,6 +490,16 @@ class RegisterBusinessFragment : Fragment(){
             }
         }
     }
+    private fun getLocationPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1)
+        }
+    }
     private fun choosePhoto(){
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         resultLauncher.launch(intent)
@@ -506,6 +530,10 @@ class RegisterBusinessFragment : Fragment(){
         })
         builder.setTitle("Хотите удалить фото ?")
         builder.show()
+    }
+
+    override fun onLocationPermissionGranted() {
+        iviAboutDialog?.onLocationPermissionGranted()
     }
 
 }
